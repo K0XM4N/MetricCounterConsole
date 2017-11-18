@@ -92,8 +92,8 @@ public class CounterService {
 
         for (Ticket t: listOfAllTickets){
 
-            if (t.getReceived() != null) {
-                String ticketDate = DateConverterService.convertDateToString(t.getReceived());
+            if (t.getDate() != null) {
+                String ticketDate = DateConverterService.convertDateToString(t.getDate());
                 if (ticketDate.equals(dateAsString)) {
                     numberOfTickets++;
                 }

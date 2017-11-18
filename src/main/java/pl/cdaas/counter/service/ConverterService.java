@@ -92,7 +92,7 @@ public class ConverterService {
             Ticket ticketFromFile = new Ticket();
             ticketFromFile.setSender(splitedRow[0]);
             ticketFromFile.setSubject(removeSubjectPrefix(splitedRow[1]));
-            ticketFromFile.setReceived(DateConverterService.convertDateFromString(splitedRow[2]));
+            ticketFromFile.setDate(DateConverterService.convertDateFromString(splitedRow[2]));
             ticketFromFile.setSize(splitedRow[3]);
             ticketFromFile.setCategories(splitedRow[4]);
 
