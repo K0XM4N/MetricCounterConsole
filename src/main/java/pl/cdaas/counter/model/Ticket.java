@@ -1,5 +1,6 @@
 package pl.cdaas.counter.model;
 
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -8,29 +9,35 @@ import java.util.Date;
 public class Ticket {
 
     private String sender;
+    private String fullSubject;
     private String subject;
-    private Date received;
+    private Date date;
     private String size;
-    private String categories;
+    private String[] labels;
     private String type;
     private String category;
     private String ticketNumber;
+    private boolean isMovedToSecondLine;
 
     public Ticket(){
 
     }
 
-    public Ticket(String sender, String subject, Date received, String size, String categories, String type, String category, String ticketNumber) {
+    public Ticket(String sender, String fullSubject, String subject, Date date, String size, String[] labels, String type, String category, String ticketNumber, boolean isMovedToSecondLine) {
         this.sender = sender;
+        this.fullSubject = fullSubject;
         this.subject = subject;
-        this.received = received;
+        this.date = date;
         this.size = size;
-        this.categories = categories;
+        this.labels = labels;
         this.type = type;
         this.category = category;
         this.ticketNumber = ticketNumber;
+        this.isMovedToSecondLine = isMovedToSecondLine;
     }
 
+
+    //GETTERS & SETTERS
 
     public String getSender() {
         return sender;
@@ -38,6 +45,14 @@ public class Ticket {
 
     public void setSender(String sender) {
         this.sender = sender;
+    }
+
+    public String getFullSubject() {
+        return fullSubject;
+    }
+
+    public void setFullSubject(String fullSubject) {
+        this.fullSubject = fullSubject;
     }
 
     public String getSubject() {
@@ -48,12 +63,12 @@ public class Ticket {
         this.subject = subject;
     }
 
-    public Date getReceived() {
-        return received;
+    public Date getDate() {
+        return date;
     }
 
-    public void setReceived(Date received) {
-        this.received = received;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getSize() {
@@ -64,12 +79,12 @@ public class Ticket {
         this.size = size;
     }
 
-    public String getCategories() {
-        return categories;
+    public String[] getLabels() {
+        return labels;
     }
 
-    public void setCategories(String categories) {
-        this.categories = categories;
+    public void setLabels(String[] labels) {
+        this.labels = labels;
     }
 
     public String getType() {
@@ -96,6 +111,14 @@ public class Ticket {
         this.ticketNumber = ticketNumber;
     }
 
+    public boolean isMovedToSecondLine() {
+        return isMovedToSecondLine;
+    }
+
+    public void setMovedToSecondLine(boolean movedToSecondLine) {
+        isMovedToSecondLine = movedToSecondLine;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -103,11 +126,14 @@ public class Ticket {
 
         Ticket ticket = (Ticket) o;
 
+        if (isMovedToSecondLine != ticket.isMovedToSecondLine) return false;
         if (sender != null ? !sender.equals(ticket.sender) : ticket.sender != null) return false;
+        if (fullSubject != null ? !fullSubject.equals(ticket.fullSubject) : ticket.fullSubject != null) return false;
         if (subject != null ? !subject.equals(ticket.subject) : ticket.subject != null) return false;
-        if (received != null ? !received.equals(ticket.received) : ticket.received != null) return false;
+        if (date != null ? !date.equals(ticket.date) : ticket.date != null) return false;
         if (size != null ? !size.equals(ticket.size) : ticket.size != null) return false;
-        if (categories != null ? !categories.equals(ticket.categories) : ticket.categories != null) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        if (!Arrays.equals(labels, ticket.labels)) return false;
         if (type != null ? !type.equals(ticket.type) : ticket.type != null) return false;
         if (category != null ? !category.equals(ticket.category) : ticket.category != null) return false;
         return ticketNumber != null ? ticketNumber.equals(ticket.ticketNumber) : ticket.ticketNumber == null;
@@ -116,13 +142,15 @@ public class Ticket {
     @Override
     public int hashCode() {
         int result = sender != null ? sender.hashCode() : 0;
+        result = 31 * result + (fullSubject != null ? fullSubject.hashCode() : 0);
         result = 31 * result + (subject != null ? subject.hashCode() : 0);
-        result = 31 * result + (received != null ? received.hashCode() : 0);
+        result = 31 * result + (date != null ? date.hashCode() : 0);
         result = 31 * result + (size != null ? size.hashCode() : 0);
-        result = 31 * result + (categories != null ? categories.hashCode() : 0);
+        result = 31 * result + Arrays.hashCode(labels);
         result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + (category != null ? category.hashCode() : 0);
         result = 31 * result + (ticketNumber != null ? ticketNumber.hashCode() : 0);
+        result = 31 * result + (isMovedToSecondLine ? 1 : 0);
         return result;
     }
 }
