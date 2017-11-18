@@ -12,17 +12,23 @@ public class Ticket {
     private Date received;
     private String size;
     private String categories;
+    private String type;
+    private String category;
+    private String ticketNumber;
 
     public Ticket(){
 
     }
 
-    public Ticket(String sender, String subject, Date received, String size, String categories) {
+    public Ticket(String sender, String subject, Date received, String size, String categories, String type, String category, String ticketNumber) {
         this.sender = sender;
         this.subject = subject;
         this.received = received;
         this.size = size;
         this.categories = categories;
+        this.type = type;
+        this.category = category;
+        this.ticketNumber = ticketNumber;
     }
 
 
@@ -66,6 +72,30 @@ public class Ticket {
         this.categories = categories;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getTicketNumber() {
+        return ticketNumber;
+    }
+
+    public void setTicketNumber(String ticketNumber) {
+        this.ticketNumber = ticketNumber;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -77,7 +107,10 @@ public class Ticket {
         if (subject != null ? !subject.equals(ticket.subject) : ticket.subject != null) return false;
         if (received != null ? !received.equals(ticket.received) : ticket.received != null) return false;
         if (size != null ? !size.equals(ticket.size) : ticket.size != null) return false;
-        return categories != null ? categories.equals(ticket.categories) : ticket.categories == null;
+        if (categories != null ? !categories.equals(ticket.categories) : ticket.categories != null) return false;
+        if (type != null ? !type.equals(ticket.type) : ticket.type != null) return false;
+        if (category != null ? !category.equals(ticket.category) : ticket.category != null) return false;
+        return ticketNumber != null ? ticketNumber.equals(ticket.ticketNumber) : ticket.ticketNumber == null;
     }
 
     @Override
@@ -87,6 +120,9 @@ public class Ticket {
         result = 31 * result + (received != null ? received.hashCode() : 0);
         result = 31 * result + (size != null ? size.hashCode() : 0);
         result = 31 * result + (categories != null ? categories.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (category != null ? category.hashCode() : 0);
+        result = 31 * result + (ticketNumber != null ? ticketNumber.hashCode() : 0);
         return result;
     }
 }

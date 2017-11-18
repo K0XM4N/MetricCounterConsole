@@ -143,7 +143,6 @@ public class ConverterService {
             correctSubject = subject.substring(bracketPosition);
         }
 
-        System.out.println(correctSubject);
         return correctSubject;
     }
 
