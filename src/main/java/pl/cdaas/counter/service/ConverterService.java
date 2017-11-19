@@ -85,16 +85,18 @@ public class ConverterService {
 
         while ((line = reader.readLine()) != null){
 
-            line = line.replace("; "," | ");
+            line = line.replace("; ",",");
 
             String[] splitedRow = line.split(";");
+            splitedRow[4] = splitedRow[4].replace("\"","");
+            String[] splitedLables = splitedRow[4].split(",");
 
             Ticket ticketFromFile = new Ticket();
             ticketFromFile.setSender(splitedRow[0]);
-            ticketFromFile.setSubject(removeSubjectPrefix(splitedRow[1]));
+            ticketFromFile.setFullSubject(splitedRow[1]);
             ticketFromFile.setDate(DateConverterService.convertDateFromString(splitedRow[2]));
             ticketFromFile.setSize(splitedRow[3]);
-            ticketFromFile.setCategories(splitedRow[4]);
+            ticketFromFile.setLabels(splitedLables);
 
             redundantTicketsFromFile.add(ticketFromFile);
         }

@@ -26,7 +26,7 @@ public class App
         listOfParsedTickets = converterService.convertCSV();
 
         for(Ticket t: listOfParsedTickets){
-            System.out.println(t.getSubject() + " " + DateConverterService.convertDateToString(t.getReceived()));
+            System.out.println(t.getSubject() + " " + DateConverterService.convertDateToString(t.getDate()));
         }
 
         CounterService counterService = new CounterService();
