@@ -94,6 +94,9 @@ public class ConverterService {
             Ticket ticketFromFile = new Ticket();
             ticketFromFile.setSender(splitedRow[0]);
             ticketFromFile.setFullSubject(splitedRow[1]);
+            String subjectWithoutPrefix = removeSubjectPrefix(ticketFromFile.getFullSubject());
+            ticketFromFile.setSubject(retriveSubject(subjectWithoutPrefix));
+            ticketFromFile.setType(retriveTicketType(subjectWithoutPrefix));
             ticketFromFile.setDate(DateConverterService.convertDateFromString(splitedRow[2]));
             ticketFromFile.setSize(splitedRow[3]);
             ticketFromFile.setLabels(splitedLables);
@@ -147,5 +150,25 @@ public class ConverterService {
 
         return correctSubject;
     }
+
+    private String retriveTicketType(String subject){
+
+        String ticketType = subject.substring(1,4);
+        return ticketType;
+    }
+
+    private String retriveSubject(String fullSubject){
+
+        String subject = "";
+        String[] splitedSubject = fullSubject.split(" ");
+        for(String s: splitedSubject){
+            if (!s.contains("[") && !s.contains("]")){
+                subject = subject.concat(s + " ");
+            }
+        }
+        return subject.trim();
+    }
+
+
 
 }
