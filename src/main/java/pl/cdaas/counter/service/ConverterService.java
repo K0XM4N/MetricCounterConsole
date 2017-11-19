@@ -99,6 +99,7 @@ public class ConverterService {
             ticketFromFile.setType(retriveTicketType(subjectWithoutPrefix));
             ticketFromFile.setDate(DateConverterService.convertDateFromString(splitedRow[2]));
             ticketFromFile.setSize(splitedRow[3]);
+            ticketFromFile.setTicketNumber(retriveTypeCategoryNumber("number",ticketFromFile.getFullSubject()));
             ticketFromFile.setLabels(splitedLables);
 
             redundantTicketsFromFile.add(ticketFromFile);
@@ -169,6 +170,34 @@ public class ConverterService {
         return subject.trim();
     }
 
+    private String retriveTypeCategoryNumber(String typeCategoryNumber, String fullSubject){
 
+        int flag = 0;
+        String[] splitedSubject = fullSubject.split(" ");
+
+        switch(typeCategoryNumber){
+            case "type":{
+                flag = 0;
+                break;
+            }
+            case "subject":{
+                flag = 1;
+                break;
+            }
+            case "number": {
+                for (int i = 0; i<splitedSubject.length; i++){
+                    if (splitedSubject[i].contains("[#")){
+                        splitedSubject[i] = splitedSubject[i].replaceAll("#","");
+                        flag = i;
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+
+        String receivedTypeCategoryNumber = splitedSubject[flag].replaceAll("\\[","").replaceAll("]","");
+        return receivedTypeCategoryNumber;
+    }
 
 }
