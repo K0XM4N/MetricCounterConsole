@@ -96,7 +96,8 @@ public class ConverterService {
             ticketFromFile.setFullSubject(splitedRow[1]);
             String subjectWithoutPrefix = removeSubjectPrefix(ticketFromFile.getFullSubject());
             ticketFromFile.setSubject(retriveSubject(subjectWithoutPrefix));
-            ticketFromFile.setType(retriveTicketType(subjectWithoutPrefix));
+            ticketFromFile.setType(retriveTypeCategoryNumber("type", ticketFromFile.getFullSubject()));
+            ticketFromFile.setCategory(retriveTypeCategoryNumber("category",ticketFromFile.getFullSubject()));
             ticketFromFile.setDate(DateConverterService.convertDateFromString(splitedRow[2]));
             ticketFromFile.setSize(splitedRow[3]);
             ticketFromFile.setTicketNumber(retriveTypeCategoryNumber("number",ticketFromFile.getFullSubject()));
@@ -173,14 +174,14 @@ public class ConverterService {
     private String retriveTypeCategoryNumber(String typeCategoryNumber, String fullSubject){
 
         int flag = 0;
-        String[] splitedSubject = fullSubject.split(" ");
+        String[] splitedSubject = removeSubjectPrefix(fullSubject).split(" ");
 
         switch(typeCategoryNumber){
             case "type":{
                 flag = 0;
                 break;
             }
-            case "subject":{
+            case "category":{
                 flag = 1;
                 break;
             }
@@ -196,7 +197,10 @@ public class ConverterService {
             }
         }
 
-        String receivedTypeCategoryNumber = splitedSubject[flag].replaceAll("\\[","").replaceAll("]","");
+        String receivedTypeCategoryNumber = "";
+        if (flag < splitedSubject.length){
+            receivedTypeCategoryNumber = splitedSubject[flag].replaceAll("\\[","").replaceAll("]","");
+        }
         return receivedTypeCategoryNumber;
     }
 
