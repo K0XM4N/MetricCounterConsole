@@ -102,6 +102,7 @@ public class ConverterService {
             ticketFromFile.setSize(splitedRow[3]);
             ticketFromFile.setTicketNumber(retriveTypeCategoryNumber("number",ticketFromFile.getFullSubject()));
             ticketFromFile.setLabels(splitedLables);
+            ticketFromFile.setMovedToSecondLine(isTicketMovedToL2(ticketFromFile.getCategory()));
 
             redundantTicketsFromFile.add(ticketFromFile);
         }
@@ -192,16 +193,29 @@ public class ConverterService {
                         flag = i;
                         break;
                     }
+                    else{
+                        flag = -1;
+                    }
                 }
                 break;
             }
         }
 
-        String receivedTypeCategoryNumber = "";
-        if (flag < splitedSubject.length){
+        String receivedTypeCategoryNumber = "not mapped";
+        if (flag < splitedSubject.length && flag >= 0){
             receivedTypeCategoryNumber = splitedSubject[flag].replaceAll("\\[","").replaceAll("]","");
         }
         return receivedTypeCategoryNumber;
+    }
+
+    private boolean isTicketMovedToL2(String category){
+
+        boolean movedToL2 = false;
+        if (category.contains("L2")){
+            movedToL2 = true;
+        }
+
+        return movedToL2;
     }
 
 }
