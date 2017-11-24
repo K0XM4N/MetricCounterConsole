@@ -187,8 +187,9 @@ public class ConverterService {
                 break;
             }
             case "number": {
+                String numberRegex1 = "^(\\[?)(\\#?)([A-Z0-9]{8})(\\]?)$";
                 for (int i = 0; i<splitedSubject.length; i++){
-                    if (splitedSubject[i].contains("[#")){
+                    if (splitedSubject[i].matches(numberRegex1)){
                         splitedSubject[i] = splitedSubject[i].replaceAll("#","");
                         flag = i;
                         break;
