@@ -16,6 +16,7 @@ public class CounterService {
     private long firstLineTickets;
     private long secondLineTickets;
     private List<Ticket> listOfAllTickets;
+    private Map<String, List<Ticket>> ticketsSplitedByCategory;
 
 
 
@@ -29,6 +30,7 @@ public class CounterService {
         this.secondLineTickets = 0;
         this.ticket = null;
         listOfAllTickets = new ArrayList<Ticket>();
+        this.ticketsSplitedByCategory = new HashMap<>();
     }
 
     public long getTotalTickets() {
