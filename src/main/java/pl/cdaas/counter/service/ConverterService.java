@@ -121,19 +121,19 @@ public class ConverterService {
 
     private List<Ticket> ignoreDuplicatedTickets(){
 
-        String ticketSubject = "";
+        String ticketNumber = "";
         Ticket mappedTicket = null;
-        List<String> ticketSubjects = new ArrayList<>();
+        List<String> uniqueTickets = new ArrayList<>();
 
-        for(int i = 0; i<redundantTicketsFromFile.size(); i++) {
+        for(Ticket redundantTicket: redundantTicketsFromFile) {
 
-            mappedTicket = redundantTicketsFromFile.get(i);
-            ticketSubject = mappedTicket.getSubject();
+            mappedTicket = redundantTicket;
+            ticketNumber = mappedTicket.getTicketNumber();
 
-            if (!ticketSubjects.contains(ticketSubject)) {
-                ticketSubjects.add(ticketSubject);
+            if (!uniqueTickets.contains(ticketNumber) && !ticketNumber.equals("not mapped")) {
+                uniqueTickets.add(ticketNumber);
                 allTickets.add(mappedTicket);
-                mappedTickets.put(ticketSubject, mappedTicket);
+                mappedTickets.put(ticketNumber, mappedTicket);
             }
         }
 
@@ -154,11 +154,6 @@ public class ConverterService {
         return correctSubject;
     }
 
-    private String retriveTicketType(String subject){
-
-        String ticketType = subject.substring(1,4);
-        return ticketType;
-    }
 
     private String retriveSubject(String fullSubject){
 
